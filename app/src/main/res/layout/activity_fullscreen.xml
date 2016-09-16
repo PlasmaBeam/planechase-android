@@ -1,0 +1,85 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ernestosalazar.planechaseandroid.FullscreenActivity">
+
+    <ImageView
+        android:id="@+id/image_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        />
+
+    <RelativeLayout
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/previous_button"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:text="@string/previous_card"
+            android:layout_alignParentStart="true"
+            style="@style/SemiTransparentButton"
+            android:enabled="false"
+            />
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:text="@string/next_card"
+            android:layout_alignParentEnd="true"
+            style="@style/SemiTransparentButton"
+            android:enabled="false"
+            />
+        <RelativeLayout
+            android:layout_width="220dp"
+            android:layout_height="140dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:id="@+id/start_deck"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="@string/start_deck"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                style="@style/SemiTransparentButton"/>
+
+            <TextView
+                android:id="@+id/counter_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_deck"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="90dp"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="30sp"
+                tools:text="0"
+                />
+            <Button
+                android:id="@+id/plus_button"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="@string/next_counter"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                style="@style/SemiTransparentButton"
+                android:enabled="false"/>
+            <Button
+                android:id="@+id/minus_button"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="@string/previous_counter"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                style="@style/SemiTransparentButton"
+                android:enabled="false"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>
