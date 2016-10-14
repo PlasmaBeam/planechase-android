@@ -141,8 +141,7 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-        mCounter = 0;
-        mCounterText.setText("" + 0);
+
         loadImage("base");
     }
 
@@ -155,28 +154,31 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
     private void loadImage(Object value) {
-
+        mCounter = 0;
+        mCounterText.setText(String.valueOf(mCounter));
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        Context context = mImageContainer.getContext();
         int id;
         if (value instanceof Integer) {
-            id = context.getResources().getIdentifier("p" + value, "drawable", context.getPackageName());
+            id = this.getResources().getIdentifier("p" + value, "drawable", this.getPackageName());
         } else {
             id = R.drawable.basewp;
         }
-        Picasso.with(context)
+        Picasso.with(this)
                 .load(id)
-                .resize(width, height)
+                .fit()
+                .noFade()
+//                .resize(width, height)
                 .placeholder(R.drawable.loading)
                 .into(mImageContainer);
+
     }
 
     private void plusCounter() {
         mCounter++;
-        mCounterText.setText(mCounter + "");
+        mCounterText.setText(String.valueOf(mCounter));
     }
 
     private void minusCounter() {
@@ -185,7 +187,7 @@ public class FullscreenActivity extends AppCompatActivity {
         } else {
             mCounter = 0;
         }
-        mCounterText.setText(mCounter + "");
+        mCounterText.setText(String.valueOf(mCounter));
     }
 
     private void enableButtons() {

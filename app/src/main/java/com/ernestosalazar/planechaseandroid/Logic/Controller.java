@@ -12,7 +12,7 @@ public class Controller {
 
     public Controller() {
         mDeck = new ArrayList<>();
-        for (int i = 1; i < 83; i++) {
+        for (int i = 1; i < 86; i++) {
             mDeck.add(i);
         }
     }
