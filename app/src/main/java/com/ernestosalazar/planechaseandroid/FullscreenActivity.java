@@ -1,7 +1,9 @@
 package com.ernestosalazar.planechaseandroid;
 
 import android.annotation.SuppressLint;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +12,12 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ernestosalazar.planechaseandroid.Fragments.PhenomenonFragment;
 import com.ernestosalazar.planechaseandroid.Logic.Controller;
 import com.squareup.picasso.Picasso;
 
@@ -48,7 +52,6 @@ public class FullscreenActivity extends AppCompatActivity {
 
     private Controller mDeckController;
     private int mCounter;
-    private boolean mStarted;
 
     private static final boolean AUTO_HIDE = true;
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
@@ -97,6 +100,7 @@ public class FullscreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
         ButterKnife.bind(this);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         mDeckController = new Controller();
 
@@ -168,15 +172,15 @@ public class FullscreenActivity extends AppCompatActivity {
         }
         Picasso.with(this)
                 .load(id)
-                .fit()
-                .noFade()
-//                .resize(width, height)
+                .resize(width, height)
                 .placeholder(R.drawable.loading)
                 .into(mImageContainer);
 
     }
 
     private void plusCounter() {
+//        DialogFragment newFragment = PhenomenonFragment.newInstance(110);
+//        newFragment.show(getFragmentManager(), "dialog");
         mCounter++;
         mCounterText.setText(String.valueOf(mCounter));
     }
@@ -215,5 +219,26 @@ public class FullscreenActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    /*
+    * Start Effects section.
+    * 1-8 phenomena
+    */
+    private void effect2(){
+        //show top 5 plane cards. pick one and put on top, rest on the bottom.
+
+    }
+
+    private void effect7(){
+        //planes walk to next two planes
+    }
+
+    private void effect34(){
+        //show next 3 planes. trigger chaos of each of them
+    }
+
+    private void effect79(){
+        //scry 1 planar deck
     }
 }

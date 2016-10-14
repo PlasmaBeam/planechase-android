@@ -2,6 +2,7 @@ package com.ernestosalazar.planechaseandroid.Logic;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by esalazar on 9/16/16.
@@ -37,5 +38,13 @@ public class Controller {
 
     public void shuffleDeck() {
         Collections.shuffle(mDeck);
+    }
+
+    public List<Integer> getTopXCards(int quantity){
+        List<Integer> aux = new ArrayList<>();
+        for(int i = 0; i <= quantity; i++){
+            aux.add(mDeck.get(i));
+        }
+        return aux;
     }
 }

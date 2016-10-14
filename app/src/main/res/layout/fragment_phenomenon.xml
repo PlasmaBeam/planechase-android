@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/black">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/main_phenomenon_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/phenomenon_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="500dp"
+                    android:layout_height="300dp" />
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="500dp"
+                    android:layout_height="300dp" />
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="500dp"
+                    android:layout_height="300dp" />
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="500dp"
+                    android:layout_height="300dp" />
+                <ImageView
+                    android:id="@+id/image5"
+                    android:layout_width="500dp"
+                    android:layout_height="300dp" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/close_dialog"
+                android:layout_marginTop="1dp"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/phenomenon_container"
+                android:text="Close" />
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
