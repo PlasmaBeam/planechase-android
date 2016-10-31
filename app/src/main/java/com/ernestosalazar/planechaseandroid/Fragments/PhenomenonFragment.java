@@ -76,6 +76,7 @@ public class PhenomenonFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        hideImagesOnEvent();
         Picasso.with(getActivity()).load(R.drawable.loading).resize(500, 300).into(mImage1);
         Picasso.with(getActivity()).load(R.drawable.basewp).resize(500, 300).into(mImage2);
         mImage3.setVisibility(View.GONE);

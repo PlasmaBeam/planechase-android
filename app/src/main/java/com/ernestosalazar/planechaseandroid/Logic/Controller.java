@@ -43,8 +43,26 @@ public class Controller {
     public List<Integer> getTopXCards(int quantity){
         List<Integer> aux = new ArrayList<>();
         for(int i = 0; i <= quantity; i++){
-            aux.add(mDeck.get(i));
+            aux.add(mDeck.get(nextCard()));
         }
         return aux;
     }
+
+    public List<Integer> getTopXNonPhenCards(int quantity){
+        List<Integer> aux = new ArrayList<>();
+        for(int i = 0; i <= quantity; i++){
+            int cardAux = nextCard();
+            if(!isPhenomenon(cardAux)) {
+                aux.add(mDeck.get(i));
+            }
+        }
+        return aux;
+    }
+
+    public boolean isPhenomenon(int card) {
+        if(card < 9)
+            return true;
+        return false;
+    }
+
 }

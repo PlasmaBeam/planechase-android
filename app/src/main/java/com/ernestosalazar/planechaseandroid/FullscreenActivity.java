@@ -166,15 +166,19 @@ public class FullscreenActivity extends AppCompatActivity {
         int height = dm.heightPixels;
         int id;
         if (value instanceof Integer) {
-            id = this.getResources().getIdentifier("p" + value, "drawable", this.getPackageName());
+            Picasso.with(this)
+                    .load(this.getResources().getIdentifier("p" + value, "drawable", this.getPackageName()))
+                    .resize(width, height)
+                    .placeholder(R.drawable.loading)
+                    .into(mImageContainer);
+
         } else {
-            id = R.drawable.basewp;
+            Picasso.with(this)
+                    .load(R.drawable.basewp)
+                    .resize(width, height)
+                    .into(mImageContainer);
         }
-        Picasso.with(this)
-                .load(id)
-                .resize(width, height)
-                .placeholder(R.drawable.loading)
-                .into(mImageContainer);
+
 
     }
 
@@ -225,6 +229,14 @@ public class FullscreenActivity extends AppCompatActivity {
     * Start Effects section.
     * 1-8 phenomena
     */
+
+    public void isEffectCard(int card){
+        if(card == 2 || card == 7 || card == 79){
+            DialogFragment newFragment = PhenomenonFragment.newInstance(110);
+            newFragment.show(getFragmentManager(), "dialog");
+        }
+    }
+
     private void effect2(){
         //show top 5 plane cards. pick one and put on top, rest on the bottom.
 
