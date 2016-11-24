@@ -1,14 +1,10 @@
 package com.ernestosalazar.planechaseandroid;
 
 import android.annotation.SuppressLint;
-import android.app.DialogFragment;
-import android.content.Context;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ernestosalazar.planechaseandroid.Fragments.PhenomenonFragment;
 import com.ernestosalazar.planechaseandroid.Logic.Controller;
 import com.squareup.picasso.Picasso;
 
@@ -26,49 +21,10 @@ import butterknife.ButterKnife;
 
 public class FullscreenActivity extends AppCompatActivity {
 
-    @BindView(R.id.content_view)
-    View mContentView;
-
-    @BindView(R.id.image_container)
-    ImageView mImageContainer;
-
-    @BindView(R.id.start_deck)
-    Button mStartButton;
-
-    @BindView(R.id.next_button)
-    Button mNextButton;
-
-    @BindView(R.id.previous_button)
-    Button mPreviousButton;
-
-    @BindView(R.id.plus_button)
-    Button mPlusButton;
-
-    @BindView(R.id.minus_button)
-    Button mMinusButton;
-
-    @BindView(R.id.counter_text)
-    TextView mCounterText;
-
-    private Controller mDeckController;
-    private int mCounter;
-
     private static final boolean AUTO_HIDE = true;
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
-    private final Runnable mHidePart2Runnable = new Runnable() {
-        @SuppressLint("InlinedApi")
-        @Override
-        public void run() {
-            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
-    };
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
@@ -94,6 +50,38 @@ public class FullscreenActivity extends AppCompatActivity {
             return false;
         }
     };
+    @BindView(R.id.content_view)
+    View mContentView;
+    private final Runnable mHidePart2Runnable = new Runnable() {
+        @SuppressLint("InlinedApi")
+        @Override
+        public void run() {
+            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        }
+    };
+    @BindView(R.id.image_container)
+    ImageView mImageContainer;
+    @BindView(R.id.start_deck)
+    Button mStartButton;
+    @BindView(R.id.next_button)
+    Button mNextButton;
+    @BindView(R.id.previous_button)
+    Button mPreviousButton;
+    @BindView(R.id.plus_button)
+    Button mPlusButton;
+    @BindView(R.id.minus_button)
+    Button mMinusButton;
+    @BindView(R.id.planar_effect_button)
+    Button mPlanarEffectButton;
+    @BindView(R.id.counter_text)
+    TextView mCounterText;
+    private Controller mDeckController;
+    private int mCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +95,7 @@ public class FullscreenActivity extends AppCompatActivity {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mPlanarEffectButton.setVisibility(View.INVISIBLE);
                 mCounter = 0;
                 mDeckController.shuffleDeck();
                 int card = mDeckController.getFirstCard();
@@ -118,16 +107,14 @@ public class FullscreenActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int card = mDeckController.nextCard();
-                loadImage(card);
+                nextCard();
             }
         });
 
         mPreviousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int card = mDeckController.previousCard();
-                loadImage(card);
+                previousCard();
             }
         });
 
@@ -164,7 +151,6 @@ public class FullscreenActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        int id;
         if (value instanceof Integer) {
             Picasso.with(this)
                     .load(this.getResources().getIdentifier("p" + value, "drawable", this.getPackageName()))
@@ -178,13 +164,24 @@ public class FullscreenActivity extends AppCompatActivity {
                     .resize(width, height)
                     .into(mImageContainer);
         }
+    }
 
+    private void nextCard() {
+        mPlanarEffectButton.setVisibility(View.INVISIBLE);
+        int card = mDeckController.nextCard();
+        loadImage(card);
+        if(isEffectCard(card)){
 
+        }
+    }
+
+    private void previousCard() {
+        mPlanarEffectButton.setVisibility(View.INVISIBLE);
+        int card = mDeckController.previousCard();
+        loadImage(card);
     }
 
     private void plusCounter() {
-//        DialogFragment newFragment = PhenomenonFragment.newInstance(110);
-//        newFragment.show(getFragmentManager(), "dialog");
         mCounter++;
         mCounterText.setText(String.valueOf(mCounter));
     }
@@ -230,27 +227,30 @@ public class FullscreenActivity extends AppCompatActivity {
     * 1-8 phenomena
     */
 
-    public void isEffectCard(int card){
-        if(card == 2 || card == 7 || card == 79){
-            DialogFragment newFragment = PhenomenonFragment.newInstance(110);
-            newFragment.show(getFragmentManager(), "dialog");
+    public boolean isEffectCard(int card) {
+        if (card == 2 || card == 7 || card == 79) {
+//            DialogFragment newFragment = PhenomenonFragment.newInstance(110);
+//            newFragment.show(getFragmentManager(), "dialog");
+            return true;
         }
+        return false;
     }
 
-    private void effect2(){
+    private void effect2() {
         //show top 5 plane cards. pick one and put on top, rest on the bottom.
-
     }
 
-    private void effect7(){
+    private void effect7() {
         //planes walk to next two planes
     }
 
-    private void effect34(){
+    private void effect34() {
+        mPlanarEffectButton.setVisibility(View.VISIBLE);
         //show next 3 planes. trigger chaos of each of them
     }
 
-    private void effect79(){
+    private void effect79() {
+        mPlanarEffectButton.setVisibility(View.VISIBLE);
         //scry 1 planar deck
     }
 }

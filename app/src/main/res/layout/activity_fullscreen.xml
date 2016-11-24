@@ -10,7 +10,6 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         />
-
     <RelativeLayout
         android:id="@+id/content_view"
         android:layout_width="match_parent"
@@ -81,5 +80,30 @@
                 style="@style/SemiTransparentButton"
                 android:enabled="false"/>
         </RelativeLayout>
+
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"/>
+        <Button
+            android:id="@+id/planar_effect_button"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_weight=".8"
+            android:visibility="invisible"
+            android:background="@drawable/button_border"
+            android:alpha="0.25"
+            android:enabled="false"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"/>
+    </LinearLayout>
 </FrameLayout>
